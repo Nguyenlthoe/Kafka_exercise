@@ -45,7 +45,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>todo.Main</mainClass>
+					<mainClass>test.Test2</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -75,7 +75,7 @@
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>libs/</classpathPrefix>
 							<mainClass>
-								todo.Main
+								test.Test2
 							</mainClass>
 						</manifest>
 					</archive>

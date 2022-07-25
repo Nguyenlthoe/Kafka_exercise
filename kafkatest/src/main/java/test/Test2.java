@@ -9,15 +9,12 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQuery;
 
-public class test2 {
+public class Test2 {
 
-    public test2() {
+    public Test2() {
         // TODO Auto-generated constructor stub
     }
     public static void main(String[] args) {
-        //Set log level to warn
-        Logger.getLogger("org").setLevel(Level.OFF);
-
         // Define a Spark Session
         SparkSession spark = SparkSession
                 .builder()
