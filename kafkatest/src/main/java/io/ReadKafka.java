@@ -44,6 +44,7 @@ public class ReadKafka {
                 .option("failOnDataLoss", "false")
                 .load()
                 .selectExpr("CAST(value AS STRING) AS value");
+        df.printSchema();
         return df;
     }
 }

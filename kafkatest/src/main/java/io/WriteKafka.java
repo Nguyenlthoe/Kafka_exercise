@@ -14,15 +14,13 @@ public class WriteKafka {
     public void writeToHDFS() {
         ReadKafka read = new ReadKafka(spark);
         Dataset<Row> df = read.read();
-
-            df.write().parquet(desPath);
+        df.write().format("parquet").mode("append").save(desPath);
     }
     public void run() {
-        this.spark = SparkSession
+        SparkSession spark = SparkSession
                 .builder()
-                .config("spark.shuffle.blockTransferService", "nio")
-                .appName("Read write data")
-                .master("yarn")
+                .appName("Spark Kafka Integration using Structured Streaming")
+                .master("local")
                 .getOrCreate();
 
 //            writeToMysql();
