@@ -5,38 +5,58 @@ import java.util.concurrent.TimeUnit;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.streaming.Trigger;
-
+import org.apache.spark.sql.streaming.StreamingQueryException;
 public class WriteKafka {
-
-    String desPath = "/data/testkafka";
+    /**
+     * Địa chỉ thư mục lưu dữ liệu.
+     */
+    private String desPath = "/data/kafka";
+    /**
+     * SparkSession.
+     */
     private SparkSession spark;
+    /**
+     * Constructor.
+     */
     public WriteKafka() {
         // TODO Auto-generated constructor stub
     }
+    /**
+     * Ghi dữ liệu vào hdfs.
+     */
     public void writeToHDFS() {
         ReadKafka read = new ReadKafka(spark);
         Dataset<Row> df = read.read().toDF();
         try {
-            df.writeStream().trigger(Trigger.ProcessingTime(10, TimeUnit.SECONDS)).format("console").start(desPath).awaitTermination();
+            df.writeStream()
+                .trigger(Trigger.ProcessingTime(1, TimeUnit.DAYS))
+                .format("parquet")
+                .option("checkpointLocation", desPath)
+                .start(desPath).awaitTermination();
         } catch (StreamingQueryException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        };
+        }
     }
+    /**
+     * Chạy.
+     */
     public void run() {
         spark = SparkSession
                 .builder()
-                .master("yarn-client")
                 .appName("Read write data")
+                .master("yarn-client")
                 .getOrCreate();
         writeToHDFS();
     }
-    public static void main(String[] args) {
+    /**
+     * Hàm chính.
+     * @param args
+     */
+    public static void main(final String[] args) {
         WriteKafka write = new WriteKafka();
 
         write.run();
     }
 }
-

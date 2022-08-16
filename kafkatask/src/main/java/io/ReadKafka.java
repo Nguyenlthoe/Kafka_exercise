@@ -3,10 +3,11 @@ package io;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.streaming.StreamingQueryException;
 
 public class ReadKafka {
-
+    /**
+     * địa chỉ máy chủ kafka.
+     */
     private final String hosts = "10.3.68.20:9092,"
             + "10.3.68.21:9092,"
             + "10.3.68.23:9092,"
@@ -30,12 +31,15 @@ public class ReadKafka {
 
     /**
      * Contructor.
-     * @param spark
+     * @param spark1
      */
-    public ReadKafka(SparkSession spark) {
-        this.spark = spark;
+    public ReadKafka(final SparkSession spark1) {
+        this.spark = spark1;
     }
-    
+    /**
+     * Đọc dữ liệu từ các server kafka.
+     * @return dataframe
+     */
     public Dataset<Row> read() {
         Dataset<Row> df = spark
                 .readStream()
@@ -46,13 +50,11 @@ public class ReadKafka {
                 //.option("startingOffsets", "earliest")
                 .load()
                 .selectExpr("CAST(value AS STRING) AS value");
+        System.out.println("---------------------------------------------");
+        System.out.println("---------------------------------------------");
         df.printSchema();
-        try {
-            df.writeStream().format("console").start().awaitTermination();
-        } catch (StreamingQueryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        };
+        System.out.println("---------------------------------------------");
+        System.out.println("---------------------------------------------");
         return df;
     }
 }
