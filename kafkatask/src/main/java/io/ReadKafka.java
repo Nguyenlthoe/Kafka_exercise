@@ -50,6 +50,7 @@ public class ReadKafka {
                 //.option("startingOffsets", "earliest")
                 .load()
                 .selectExpr("CAST(value AS STRING) AS value");
+        df.select("value").summary().show();
         System.out.println("---------------------------------------------");
         System.out.println("---------------------------------------------");
         df.printSchema();
