@@ -11,7 +11,7 @@ public class WriteKafka {
     /**
      * Địa chỉ thư mục lưu dữ liệu.
      */
-    private String desPath = "/data/kafka";
+    private String desPath = "/data/nguyenlt";
     /**
      * SparkSession.
      */
@@ -27,12 +27,15 @@ public class WriteKafka {
      */
     public void writeToHDFS() {
         ReadKafka read = new ReadKafka(spark);
+        final long triggerTime = 20;
         Dataset<Row> df = read.read().toDF();
         try {
             df.writeStream()
-                .trigger(Trigger.ProcessingTime(1, TimeUnit.DAYS))
+                .trigger(Trigger
+                        .ProcessingTime(triggerTime, TimeUnit.SECONDS))
                 .format("parquet")
                 .option("checkpointLocation", desPath)
+                .outputMode("append")
                 .start(desPath).awaitTermination();
         } catch (StreamingQueryException e) {
             // TODO Auto-generated catch block

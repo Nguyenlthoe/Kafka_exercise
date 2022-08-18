@@ -4,6 +4,15 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import static org.apache.spark.sql.functions.col;
+import static org.apache.spark.sql.functions.split;
+
+import static org.apache.spark.sql.types.DataTypes.LongType;
+import static org.apache.spark.sql.types.DataTypes.IntegerType;
+import static org.apache.spark.sql.types.DataTypes.TimestampType;
+import static org.apache.spark.sql.types.DataTypes.StringType;
+import static org.apache.spark.sql.types.DataTypes.DateType;
+
 public class ReadKafka {
     /**
      * địa chỉ máy chủ kafka.
@@ -50,13 +59,47 @@ public class ReadKafka {
                 //.option("startingOffsets", "earliest")
                 .load()
                 .selectExpr("CAST(value AS STRING) AS value");
-        df.select("value").summary().show();
+        df = df.select(split(col("value"), "\t").as("split"));
+        final int iBanner = 4;
+        final int iGUIDTime = 3;
+        final int iViewCount = 5;
+        final int iGUID = 6;
+        final int iDomain = 7;
+        final int iZoneId = 10;
+        final int iCampain = 11;
+        final int iPrice = 17;
+        final int iCov = 9;
+        Dataset<Row> finalDf = df.select(
+                col("split").getItem(0).cast(LongType)
+                .cast(TimestampType).as("TimeNow"),
+                col("split").getItem(1)
+                .cast(LongType).as("ip"),
+                col("split").getItem(2)
+                .cast(StringType).as("userAgent"),
+                col("split").getItem(iGUIDTime).cast(LongType)
+                .cast(TimestampType).cast(DateType).as("Date"),
+                col("split").getItem(iBanner)
+                .cast(LongType).as("bannerId"),
+                col("split").getItem(iViewCount)
+                .cast(LongType).as("Viewcount"),
+                col("split").getItem(iGUID)
+                .cast(LongType).as("GUID"),
+                col("split").getItem(iDomain)
+                .cast(StringType).as("admDomain"),
+                col("split").getItem(iCov)
+                .cast(IntegerType).as("Cov"),
+                col("split").getItem(iZoneId)
+                .cast(LongType).as("ZoneId"),
+                col("split").getItem(iCampain)
+                .cast(LongType).as("Campain"),
+                col("split").getItem(iPrice)
+                .cast(LongType).as("Price"));
         System.out.println("---------------------------------------------");
         System.out.println("---------------------------------------------");
         df.printSchema();
         System.out.println("---------------------------------------------");
         System.out.println("---------------------------------------------");
-        return df;
+        return finalDf;
     }
 }
 
