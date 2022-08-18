@@ -49,7 +49,7 @@ public class WriteKafka {
         spark = SparkSession
                 .builder()
                 .appName("Read write data")
-                .master("yarn-client")
+                .master("yarn")
                 .getOrCreate();
         writeToHDFS();
     }

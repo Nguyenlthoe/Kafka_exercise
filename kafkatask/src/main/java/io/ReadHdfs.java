@@ -3,6 +3,9 @@ package io;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
 
 public class ReadHdfs {
     /**
@@ -26,7 +29,34 @@ public class ReadHdfs {
      * @return dataframe
      */
     public Dataset<Row> read() {
-        Dataset<Row> df = spark.readStream().format("parquet").load(path);
+        StructType sch =  DataTypes.createStructType(new StructField[] {
+                DataTypes
+                .createStructField("timeNow", DataTypes.TimestampType, true),
+                DataTypes
+                .createStructField("ip", DataTypes.LongType, true),
+                DataTypes
+                .createStructField("userAgent", DataTypes.StringType, true),
+                DataTypes
+                .createStructField("Date", DataTypes.DateType, true),
+                DataTypes
+                .createStructField("bannerId", DataTypes.LongType, true),
+                DataTypes
+                .createStructField("Viewcount", DataTypes.LongType, true),
+                DataTypes
+                .createStructField("GUID", DataTypes.LongType, true),
+                DataTypes
+                .createStructField("admDomain", DataTypes.StringType, true),
+                DataTypes
+                .createStructField("Cov", DataTypes.IntegerType, true),
+                DataTypes
+                .createStructField("zoneId", DataTypes.LongType, true),
+                DataTypes
+                .createStructField("Campain", DataTypes.LongType, true),
+                DataTypes
+                .createStructField("Price", DataTypes.LongType, true),
+        });
+        Dataset<Row> df = spark.readStream().schema(sch)
+                .format("parquet").load(path);
         return df;
     }
 }
