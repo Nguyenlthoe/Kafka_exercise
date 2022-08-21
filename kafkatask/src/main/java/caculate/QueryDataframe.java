@@ -4,6 +4,12 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
 import static org.apache.spark.sql.functions.col;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import scala.collection.JavaConverters;
+import scala.collection.Seq;
 public final class QueryDataframe {
     /**
      * constructor.
@@ -17,13 +23,15 @@ public final class QueryDataframe {
      */
     public void countClickAndView(final Dataset<Row> df) {
         Dataset<Row> clickDf = df.filter(col("Cov").equalTo("1"))
-                .groupBy(col("Campain")).count().as("click");
+                .groupBy(col("Campain")).count().as("clickDf");
         Dataset<Row> viewDf = df.filter(col("Cov").equalTo("0"))
-                .groupBy(col("Campain")).count().as("view");
-        Dataset<Row> joinDf = viewDf.join(clickDf,
-                viewDf.col("Campain").equalTo(clickDf.col("Campain")), "full");
+                .groupBy(col("Campain")).count().as("viewDf");
+        List<String> campainString = new ArrayList<String>();
+        campainString.add("Campain");
+        Dataset<Row> joinDf = viewDf.join(clickDf, JavaConverters
+                .asScalaIteratorConverter(campainString.iterator())
+                .asScala().toSeq(), "outer");
         joinDf = joinDf.na().fill(0);
-        joinDf.printSchema();
-        joinDf.write().format("console");
+        joinDf.show();
     }
 }
