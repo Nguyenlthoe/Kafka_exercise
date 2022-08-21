@@ -24,6 +24,6 @@ public final class QueryDataframe {
                 viewDf.col("Campain").equalTo(clickDf.col("Campain")), "full");
         joinDf = joinDf.na().fill(0);
         joinDf.printSchema();
-        joinDf.write();
+        joinDf.write().format("console");
     }
 }
