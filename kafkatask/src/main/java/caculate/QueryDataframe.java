@@ -24,8 +24,10 @@ public final class QueryDataframe {
     public void countClickAndView(final Dataset<Row> df) {
         Dataset<Row> clickDf = df.filter(col("Cov").equalTo("1"))
                 .groupBy(col("Campain")).count().as("clickDf");
+	clickDf = clickDf.select(col("Campain"), col("count").as("click"));
         Dataset<Row> viewDf = df.filter(col("Cov").equalTo("0"))
                 .groupBy(col("Campain")).count().as("viewDf");
+	viewDf = viewDf.select(col("Campain"), col("count").as("view"));
         List<String> campainString = new ArrayList<String>();
         campainString.add("Campain");
         Dataset<Row> joinDf = viewDf.join(clickDf, JavaConverters
