@@ -2,7 +2,6 @@ package caculate;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.streaming.StreamingQueryException;
 
 import static org.apache.spark.sql.functions.col;
 public final class QueryDataframe {
@@ -25,12 +24,6 @@ public final class QueryDataframe {
                 viewDf.col("Campain").equalTo(clickDf.col("Campain")), "full");
         joinDf = joinDf.na().fill(0);
         joinDf.printSchema();
-        try {
-            joinDf.writeStream().format("console")
-            .start().awaitTermination();
-        } catch (StreamingQueryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        joinDf.write();
     }
 }
