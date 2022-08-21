@@ -21,7 +21,7 @@ public final class Main {
     public static void main(final String[] args) {
         SparkSession spark = SparkSession.builder()
                 .appName("Query hdfs")
-                .master("yarn-client")
+                .master("yarn")
                 .getOrCreate();
         ReadHdfs read = new ReadHdfs(spark);
         Dataset<Row> df = read.read();

@@ -31,7 +31,7 @@ public class ReadHdfs {
     public Dataset<Row> read() {
         StructType sch =  DataTypes.createStructType(new StructField[] {
                 DataTypes
-                .createStructField("timeNow", DataTypes.TimestampType, true),
+                .createStructField("TimeNow", DataTypes.TimestampType, true),
                 DataTypes
                 .createStructField("ip", DataTypes.LongType, true),
                 DataTypes
@@ -49,7 +49,7 @@ public class ReadHdfs {
                 DataTypes
                 .createStructField("Cov", DataTypes.IntegerType, true),
                 DataTypes
-                .createStructField("zoneId", DataTypes.LongType, true),
+                .createStructField("ZoneId", DataTypes.LongType, true),
                 DataTypes
                 .createStructField("Campain", DataTypes.LongType, true),
                 DataTypes

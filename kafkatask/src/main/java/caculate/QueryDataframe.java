@@ -17,15 +17,17 @@ public final class QueryDataframe {
      * @param df
      */
     public void countClickAndView(final Dataset<Row> df) {
-        Dataset<Row> clickDf = df.filter(col("Cov").equalTo("1"))
-                .groupBy(col("Campain")).count().as("click");
-        Dataset<Row> viewDf = df.filter(col("Cov").equalTo("0"))
-                .groupBy(col("Campain")).count().as("view");
-        Dataset<Row> joinDf = viewDf.join(clickDf,
-                viewDf.col("Campain").equalTo(clickDf.col("Campain")), "full");
+        Dataset<Row> joinDf = df.filter(col("Cov").equalTo("0"))
+                .groupBy(col("Campain")).count().as("view").join(df.filter(col("Cov").equalTo("1"))
+                .groupBy(col("Campain")).count().as("click"),
+                df.filter(col("Cov").equalTo("0"))
+                .groupBy(col("Campain")).count().as("view").col("Campain").equalTo(df.filter(col("Cov").equalTo("1"))
+                        .groupBy(col("Campain")).count().as("click").col("Campain")), "full");
         joinDf = joinDf.na().fill(0);
+        joinDf.printSchema();
         try {
-            joinDf.writeStream().format("console").start().awaitTermination();
+            joinDf.writeStream().format("console")
+            .start().awaitTermination();
         } catch (StreamingQueryException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
