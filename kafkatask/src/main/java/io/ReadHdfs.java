@@ -55,7 +55,7 @@ public class ReadHdfs {
                 DataTypes
                 .createStructField("Price", DataTypes.LongType, true),
         });
-        Dataset<Row> df = spark.readStream().schema(sch)
+        Dataset<Row> df = spark.read().schema(sch)
                 .format("parquet").load(path);
         return df;
     }
