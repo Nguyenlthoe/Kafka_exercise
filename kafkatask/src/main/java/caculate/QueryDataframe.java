@@ -45,10 +45,11 @@ public final class QueryDataframe {
     public void countLocation(final Dataset<Row> df) {
         final int numberRow = 30;
         Dataset<Row> locationDf = df
-                .select(countDistinct(col("Campain"), col("ZoneId")));
-        locationDf = locationDf.groupBy(col("Campain")).count();
+                .select(col("Campain"), col("ZoneId"));
+        locationDf = locationDf.groupBy(col("Campain"))
+			.agg(countDistinct(col("ZoneId")));
         locationDf = locationDf.select(col("Campain"),
-                col("count").as("number Of Location"));
+                col("count(DISTINCT ZoneId)").as("number Of Location"));
         locationDf.show(numberRow);
     }
     /**
@@ -61,7 +62,7 @@ public final class QueryDataframe {
                 .select(col("Campain"), col("GUID"));
         userDf = userDf.groupBy(col("Campain")).agg(countDistinct(col("GUID")));
         userDf = userDf.select(col("Campain"),
-                col("count").as("number Of User"));
+                col("count(DISTINCT GUID)").as("number Of User"));
         userDf.show(numberRow);
     }
 }
