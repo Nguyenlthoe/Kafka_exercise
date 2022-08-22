@@ -58,8 +58,8 @@ public final class QueryDataframe {
     public void countUser(final Dataset<Row> df) {
         final int numberRow = 30;
         Dataset<Row> userDf = df
-                .select(countDistinct(col("Campain"), col("GUID")));
-        userDf = userDf.groupBy(col("Campain")).count();
+                .select(col("Campain"), col("GUID"));
+        userDf = userDf.groupBy(col("Campain")).agg(countDistinct(col("GUID")));
         userDf = userDf.select(col("Campain"),
                 col("count").as("number Of User"));
         userDf.show(numberRow);
