@@ -28,7 +28,7 @@ public final class Main {
             ReadHdfs read = new ReadHdfs(spark);
             Dataset<Row> df = read.read();
             QueryDataframe queryDf = new QueryDataframe();
-            queryDf.countLocation(df);
+            queryDf.countUser(df);
             try {
                 Thread.sleep(timeUpdate);
             } catch (InterruptedException e) {

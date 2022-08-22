@@ -47,9 +47,7 @@ public final class QueryDataframe {
         Dataset<Row> locationDf = df
                 .select(col("Campain"), col("ZoneId"));
         locationDf = locationDf.groupBy(col("Campain"))
-			.agg(countDistinct(col("ZoneId")));
-        locationDf = locationDf.select(col("Campain"),
-                col("count(DISTINCT ZoneId)").as("number Of Location"));
+                .agg(countDistinct(col("ZoneId")).as("number Of Location"));
         locationDf.show(numberRow);
     }
     /**
@@ -60,9 +58,8 @@ public final class QueryDataframe {
         final int numberRow = 30;
         Dataset<Row> userDf = df
                 .select(col("Campain"), col("GUID"));
-        userDf = userDf.groupBy(col("Campain")).agg(countDistinct(col("GUID")));
-        userDf = userDf.select(col("Campain"),
-                col("count(DISTINCT GUID)").as("number Of User"));
+        userDf = userDf.groupBy(col("Campain"))
+                .agg(countDistinct(col("GUID")).as("number Of User"));
         userDf.show(numberRow);
     }
 }
