@@ -84,8 +84,8 @@ public final class QueryDataframe {
                         .as("numberOfCampain"));
         userDf = userDf.filter("numberOfCampain = " + campains.size());
         System.out.println("----------------------------------------------");
-        System.out.println(condition);
-        System.out.print(userDf.count());
+        System.out.println(condition + "\n");
+        System.out.print("Number User: " + userDf.count() + "\n");
         System.out.println("----------------------------------------------");
     }
 }
