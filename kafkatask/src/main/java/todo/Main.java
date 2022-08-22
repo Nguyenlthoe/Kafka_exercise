@@ -29,6 +29,8 @@ public final class Main {
         while (true) {
             ReadHdfs read = new ReadHdfs(spark);
             ArrayList<String> campains = new ArrayList<String>();
+            campains.add("203141");
+            campains.add("203611");
             Dataset<Row> df = read.read();
             QueryDataframe queryDf = new QueryDataframe();
             //queryDf.countUser(df);

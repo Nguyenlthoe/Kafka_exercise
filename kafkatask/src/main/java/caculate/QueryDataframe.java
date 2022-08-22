@@ -69,10 +69,23 @@ public final class QueryDataframe {
     public void countUserOfCampains(final Dataset<Row> df,
             final ArrayList<String> campains) {
         final int numberRow = 30;
+        String condition = "";
+        if (campains.size() > 0) {
+            condition = "Campain = " + campains.get(0);
+        }
+        for (int i = 1; i < campains.size(); i++) {
+            condition = condition + " or Campain = " + campains.get(i);
+        }
         Dataset<Row> userDf = df
                 .select(col("Campain"), col("GUID"));
-        userDf = userDf.filter("Campain = 203611 or"
-                + " Campain = 203585 or Campain = 203141");
-        userDf.show(numberRow);
+        userDf = userDf.filter(condition);
+        userDf = userDf.groupBy(col("GUID"))
+                .agg(countDistinct(col("Campain"))
+                        .as("number Of Campain"));
+        userDf = userDf.filter("number of Campain = " + campains.size());
+        System.out.println("----------------------------------------------");
+        System.out.println(condition);
+        System.out.print(userDf.count());
+        System.out.println("----------------------------------------------");
     }
 }
