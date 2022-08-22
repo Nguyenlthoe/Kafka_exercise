@@ -82,7 +82,7 @@ public final class QueryDataframe {
         userDf = userDf.groupBy(col("GUID"))
                 .agg(countDistinct(col("Campain"))
                         .as("number Of Campain"));
-        userDf = userDf.filter("number of Campain = " + campains.size());
+        userDf = userDf.filter("number Of Campain = " + campains.size());
         System.out.println("----------------------------------------------");
         System.out.println(condition);
         System.out.print(userDf.count());
