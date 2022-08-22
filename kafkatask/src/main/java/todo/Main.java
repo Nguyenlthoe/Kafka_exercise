@@ -1,5 +1,7 @@
 package todo;
 
+import java.util.ArrayList;
+
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -26,9 +28,11 @@ public final class Main {
                 .getOrCreate();
         while (true) {
             ReadHdfs read = new ReadHdfs(spark);
+            ArrayList<String> campains = new ArrayList<String>();
             Dataset<Row> df = read.read();
             QueryDataframe queryDf = new QueryDataframe();
-            queryDf.countUser(df);
+            //queryDf.countUser(df);
+            queryDf.countUserOfCampains(df, campains);
             try {
                 Thread.sleep(timeUpdate);
             } catch (InterruptedException e) {

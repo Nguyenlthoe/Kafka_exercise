@@ -62,4 +62,17 @@ public final class QueryDataframe {
                 .agg(countDistinct(col("GUID")).as("number Of User"));
         userDf.show(numberRow);
     }
+    /** Tính số lượng user vào nhiều campain.
+     * @param df
+     * @param campains
+     */
+    public void countUserOfCampains(final Dataset<Row> df,
+            final ArrayList<String> campains) {
+        final int numberRow = 30;
+        Dataset<Row> userDf = df
+                .select(col("Campain"), col("GUID"));
+        userDf = userDf.filter("Campain = 203611 or"
+                + " Campain = 203585 or Campain = 203141");
+        userDf.show(numberRow);
+    }
 }
