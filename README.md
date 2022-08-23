@@ -36,7 +36,7 @@ Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class io.Wr
 ### 1. Xác định số lượng click and view từng campain với cov = 1 là log click, cov = 0 là view 
 
 Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountClickAndView [link to file kafkatask-1.0-jar-with-dependencies.jar] </i></b> <br>
-Ví dụ: bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountClickAndView /home/nguyenlt/kafka/Kafka_exercise/kafkatask/target/kafkatask-1.0-jar-with-dependencies.jar
+Ví dụ: bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountClickAndView /home/nguyenlt/kafka/Kafka_exercise/kafkatask/target/kafkatask-1.0-jar-with-dependencies.jar <br>
 ![image](https://user-images.githubusercontent.com/81378622/186062833-eba8eb32-9408-46af-a05a-b2afbe011057.png)
 
 ### Xác định số lượng location
