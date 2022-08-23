@@ -101,4 +101,17 @@ public final class QueryDataframe {
         userDf = userDf.filter("numberOfCampain > 1");
         userDf.show(numberRow);
     }
+    /**
+     * Lấy các campains của user.
+     * @param df
+     * @param uGUID
+     */
+    public void findCampainOfUser(final Dataset<Row> df,
+            final String uGUID) {
+        final int numberRow = 30;
+        Dataset<Row> userDf = df
+                .select(col("Campain"), col("GUID"));
+        userDf = userDf.filter("GUID = " + uGUID);
+        userDf.show(numberRow);
+    }
 }

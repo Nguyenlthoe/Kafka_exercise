@@ -28,7 +28,8 @@ public final class Test {
             ReadHdfs read = new ReadHdfs(spark);
             Dataset<Row> df = read.read();
             QueryDataframe queryDf = new QueryDataframe();
-            queryDf.findUser(df);
+            //queryDf.findUser(df);
+            queryDf.findCampainOfUser(df, args[0]);
 //            try {
 //                Thread.sleep(timeUpdate);
 //            } catch (InterruptedException e) {
