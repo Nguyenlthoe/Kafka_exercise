@@ -89,7 +89,7 @@ public final class QueryDataframe {
         System.out.println("----------------------------------------------");
     }
     /**
-     * Số lượng campains từng user.
+     * Số lượng campains từng user(chỉ lấy 2).
      * @param df
      */
     public void findUser(final Dataset<Row> df) {
@@ -97,7 +97,8 @@ public final class QueryDataframe {
         Dataset<Row> userDf = df
                 .select(col("Campain"), col("GUID"));
         userDf = userDf.groupBy(col("GUID"))
-                .agg(countDistinct(col("Campain")).as("number Of Campain"));
+                .agg(countDistinct(col("Campain")).as("numberOfCampain"));
+        userDf = userDf.filter("numberOfCampain > 1");
         userDf.show(numberRow);
     }
 }
