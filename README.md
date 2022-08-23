@@ -37,10 +37,17 @@ Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class io.Wr
 
 Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountClickAndView [link to file kafkatask-1.0-jar-with-dependencies.jar] </i></b> <br>
 Ví dụ: bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountClickAndView /home/nguyenlt/kafka/Kafka_exercise/kafkatask/target/kafkatask-1.0-jar-with-dependencies.jar
+![image](https://user-images.githubusercontent.com/81378622/186062833-eba8eb32-9408-46af-a05a-b2afbe011057.png)
+
 ### Xác định số lượng location
 Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountLocation [link to file kafkatask-1.0-jar-with-dependencies.jar] </i></b> <br>
+![image](https://user-images.githubusercontent.com/81378622/186062688-c6d772f4-f38b-4d5d-8150-1a741b20638b.png)
+
 ### Xác định user từng campain
 Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountUser [link to file kafkatask-1.0-jar-with-dependencies.jar] </i></b> <br>
+![image](https://user-images.githubusercontent.com/81378622/186062540-885a83a7-671f-40e8-96ae-a2581773bd0b.png)
+
 ### Xác định số user vào nhiều campain
 Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountUserOfCampains [link to file kafkatask-1.0-jar-with-dependencies.jar] [list campainID] </i></b> <br>
 Ví dụ: bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountUserOfCampains /home/nguyenlt/kafka/Kafka_exercise/kafkatask/target/kafkatask-1.0-jar-with-dependencies.jar 203611 206222
+![image](https://user-images.githubusercontent.com/81378622/186062380-6fe4a1d3-12fd-45ed-a7f6-568311ee242f.png)
