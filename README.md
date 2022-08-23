@@ -32,7 +32,7 @@ price: giá lên quảng cáo tại vị trí zoneId.  <br>
 Chạy <b><i>cd kafkatask</b></i> và <b><i>mvn package</i></b>
 
 ## Ghi dữ liệu vào hdfs 
-Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountClickAndView [link to file kafkatask-1.0-jar-with-dependencies.jar] 
+Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class io.WriteKafka [link to file kafkatask-1.0-jar-with-dependencies.jar] 
 ### 1. Xác định số lượng click and view từng campain với cov = 1 là log click, cov = 0 là view 
 
 Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountClickAndView [link to file kafkatask-1.0-jar-with-dependencies.jar] </i></b> <br>
