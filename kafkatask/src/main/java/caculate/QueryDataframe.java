@@ -68,7 +68,6 @@ public final class QueryDataframe {
      */
     public void countUserOfCampains(final Dataset<Row> df,
             final ArrayList<String> campains) {
-        final int numberRow = 30;
         String condition = "";
         if (campains.size() > 0) {
             condition = "Campain = " + campains.get(0);
@@ -83,9 +82,10 @@ public final class QueryDataframe {
                 .agg(countDistinct(col("Campain"))
                         .as("numberOfCampain"));
         userDf = userDf.filter("numberOfCampain = " + campains.size());
+        long count = userDf.count();
         System.out.println("----------------------------------------------");
         System.out.println(condition + "\n");
-        System.out.print("Number User: " + userDf.count() + "\n");
+        System.out.print("Number User: " + count + "\n");
         System.out.println("----------------------------------------------");
     }
 }
