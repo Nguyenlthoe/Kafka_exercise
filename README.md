@@ -37,5 +37,5 @@ Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.
 ### Xác định user từng campain
 Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountUser [link to file kafkatask-1.0-jar-with-dependencies.jar] </i></b> <br>
 ### Xác định số user vào nhiều campain
-Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountUser [link to file kafkatask-1.0-jar-with-dependencies.jar] [list campainID] </i></b> <br>
+Chạy <b><i>bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountUserOfCampains [link to file kafkatask-1.0-jar-with-dependencies.jar] [list campainID] </i></b> <br>
 Ví dụ: bin/spark-submit  --deploy-mode client  --master yarn --class todo.CountUserOfCampains /home/nguyenlt/kafka/Kafka_exercise/kafkatask/target/kafkatask-1.0-jar-with-dependencies.jar 203611 206222
