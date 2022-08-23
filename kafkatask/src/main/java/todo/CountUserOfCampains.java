@@ -17,7 +17,7 @@ public final class CountUserOfCampains {
         // TODO Auto-generated constructor stub
     }
     /**
-     * main.
+     * Tính toán số lượng user vào nhiều campains.
      * @param args
      */
     public static void main(final String[] args) {

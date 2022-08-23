@@ -15,7 +15,7 @@ public final class CountClickAndView {
         // TODO Auto-generated constructor stub
     }
     /**
-     * main.
+     * tính toán số lượng click and view của từng campains.
      * @param args
      */
     public static void main(final String[] args) {
@@ -26,12 +26,8 @@ public final class CountClickAndView {
                 .getOrCreate();
         while (true) {
             ReadHdfs read = new ReadHdfs(spark);
-//            ArrayList<String> campains = new ArrayList<String>();
-//            campains.add("203141");
-//            campains.add("203611");
             Dataset<Row> df = read.read();
             QueryDataframe queryDf = new QueryDataframe();
-            //queryDf.countUser(df);
             queryDf.countClickAndView(df);
             try {
                 Thread.sleep(timeUpdate);

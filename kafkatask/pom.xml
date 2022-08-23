@@ -121,7 +121,7 @@
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>libs/</classpathPrefix>
 							<mainClass>
-								to.Main
+								todo.CountClickAndView
 							</mainClass>
 						</manifest>
 					</archive>
