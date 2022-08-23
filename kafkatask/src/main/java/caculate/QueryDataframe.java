@@ -83,6 +83,7 @@ public final class QueryDataframe {
                         .as("numberOfCampain"));
         userDf = userDf.filter("numberOfCampain = " + campains.size());
         long count = userDf.count();
+        condition = condition.replaceAll("or", "and");
         System.out.println("----------------------------------------------");
         System.out.println(condition + "\n");
         System.out.print("Number User: " + count + "\n");
